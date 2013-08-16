@@ -14,6 +14,8 @@ This include can be added to the header or placed inline before the script is in
 
 ## Functions
 
+### send
+
 ```javascript
 useful.request.send({
 	url : 'http://localhost/',
@@ -38,6 +40,8 @@ Sends an AJAX request and runs the event handlers when appropriate.
 
 The *reply* object is passed to all these functions.
 
+### Format of the reply object
+
 ```javascript
 reply = {
 	readyState : integer,
@@ -61,6 +65,8 @@ reply = {
 
 **statusText : {string}** - The status of the request in the form of a string.
 
+### deserialize
+
 ```javascript
 object = useful.request.deserialize(text);
 ```
@@ -70,6 +76,8 @@ Turns HTML or XML in the form of text into a DOM object.
 **object : {DOM object}** - An XML or HTML DOM object.
 
 **text : {HTML} | {XML}** - A valid HTML or XML document in text form.
+
+### decode
 
 ```javascript
 object = useful.request.decode(text);
