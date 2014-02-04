@@ -19,6 +19,11 @@
 	// private functions
 	var request = request || {};
 
+	// adds a random argument to the AJAX URL to bust the cache
+	request.randomise = function (url) {
+		return url.replace('?', '?time=' + new Date().getTime() + '&');
+	};
+
 	// perform and handle an AJAX request
 	request.send = function (properties) {
 		var serverRequest;
@@ -42,7 +47,7 @@
 		// else treat it as a GET
 		} else {
 			// open the request
-			serverRequest.open('GET', properties.url, true);
+			serverRequest.open('GET', request.randomise(properties.url), true);
 			// send the request
 			try { serverRequest.send(); }
 			catch (errorMessage) { properties.onFailure({readyState : -1, status : -1, statusText : errorMessage}); }
@@ -99,10 +104,13 @@
 		} else if (typeof jQuery !== 'undefined') {
 			// use it
 			object = jQuery.parseJSON(text);
-		} else {
+		}
+/*
+		else {
 			// do something desperate
 			eval('object = ' + text);
 		}
+*/
 		// return the object
 		return object;
 	};
