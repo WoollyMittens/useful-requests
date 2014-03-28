@@ -2,18 +2,21 @@
 	Example Styling for Useful Functions
 */
 @media all {
+  /* line 8, ../../src/scss/useful-requests.scss */
   .useful-tests dt {
     font-weight: bold;
     display: block;
     margin: 0;
     padding: 0;
   }
+  /* line 14, ../../src/scss/useful-requests.scss */
   .useful-tests dd {
     display: block;
     margin: 0 0 1.3em 0;
     padding: 0;
   }
 
+  /* line 20, ../../src/scss/useful-requests.scss */
   #position-test {
     border: solid 1px #333;
     height: 64px;
@@ -23,12 +26,14 @@
     width: auto;
   }
 
+  /* line 28, ../../src/scss/useful-requests.scss */
   #interaction-test {
     border: solid 1px #333;
     height: 64px;
     width: auto;
   }
 
+  /* line 33, ../../src/scss/useful-requests.scss */
   #css-test {
     -webkit-transition: all ease;
     -webkit-transition-delay: 500ms;
@@ -41,10 +46,12 @@
     width: 100px;
     position: relative;
   }
+  /* line 40, ../../src/scss/useful-requests.scss */
   #css-test.big {
     height: 150px;
     width: 150px;
   }
+  /* line 44, ../../src/scss/useful-requests.scss */
   #css-test.small {
     height: 50px;
     width: 50px;
