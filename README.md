@@ -28,9 +28,12 @@ To enable the use of HTML5 tags in Internet Explorer 8 and lower, include *html5
 useful.request.send({
 	url : 'http://localhost/',
 	post : 'name=value&foo=bar',
-	onProgress : function (reply) {return reply},
-	onFailure : function (reply) {return reply},
-	onSuccess : function (reply) {return reply}
+	contentType : 'text/xml',
+	timeout : 4000,
+	onTimeout : function (reply) { return reply; },
+	onProgress : function (reply) { return reply; },
+	onFailure : function (reply) { return reply; },
+	onSuccess : function (reply) { return reply; }
 });
 ```
 
@@ -40,11 +43,19 @@ Sends an AJAX request and runs the event handlers when appropriate.
 
 **post : {string}** - A POST request in the form of name value pairs separated by &. If not empty the AJAX request will be a POST instead of GET.
 
+**contentType : {string}** - Optional content type. Default is "application/x-www-form-urlencoded".
+
+**timeout : {integer}** - Optional number of milliseconds to wait before giving up.
+
+**onTimeout : {function}** - Optional function to run when the optional timeout is exceeded.
+
 **onProgress : {function}** - A function that gets called after every progress update to the request.
 
 **onFailure : {function}** - A function that gets called when the request fails.
 
 **onSuccess : {function}** - A function that gets called after the request completes successfully. Only here will the *reply* object contain the *response*.
+
+**contentType
 
 The *reply* object is passed to all these functions.
 
