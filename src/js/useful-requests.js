@@ -1,6 +1,6 @@
 /*
 	Source:
-	van Creij, Maurice (2012). "useful.requests.js: A library of useful functions to ease working with AJAX and JSON.", version 20121126, http://www.woollymittens.nl/.
+	van Creij, Maurice (2014). "useful.requests.js: A library of useful functions to ease working with AJAX and JSON.", version 20140826, http://www.woollymittens.nl/.
 
 	License:
 	This work is licensed under a Creative Commons Attribution 3.0 Unported License.
@@ -24,41 +24,69 @@
 		return url.replace('?', '?time=' + new Date().getTime() + '&');
 	};
 
+	// create a request that is compatible with the browser
+	request.create = function (properties) {
+		var serverRequest;
+		// create a microsoft only xdomain request
+		if (window.XDomainRequest && properties.xdomain) {
+			// create the request object
+			serverRequest = new XDomainRequest();
+			// add the event handler(s)
+			serverRequest.onload = function () { properties.onSuccess(serverRequest, properties); };
+			serverRequest.onerror = function () { properties.onFailure(serverRequest, properties); };
+			serverRequest.ontimeout = function () { properties.onTimeout(serverRequest, properties); };
+			serverRequest.onprogress = function () { properties.onProgress(serverRequest, properties); };
+		}
+		// or create a standard HTTP request
+		else if (window.XMLHttpRequest) {
+			// create the request object
+			serverRequest = new XMLHttpRequest();
+			// set the optional timeout
+			serverRequest.timeout = properties.timeout || 0;
+			// add the event handler(s)
+			serverRequest.ontimeout = function () { properties.onTimeout(serverRequest, properties); };
+			serverRequest.onreadystatechange = function () { request.update(serverRequest, properties); };
+		}
+		// or use the fall back
+		else {
+			// create the request object
+			serverRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			// add the event handler(s)
+			serverRequest.onreadystatechange = function () { request.update(serverRequest, properties); };
+		}
+		// return the request object
+		return serverRequest;
+	}
+
 	// perform and handle an AJAX request
 	request.send = function (properties) {
-		var serverRequest;
-		// create an HTTP request
-		serverRequest = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-		// add the onchange handler
-		serverRequest.onreadystatechange = function () {
-			request.update(serverRequest, properties);
-		};
-		// set the optional timeout
-		if (properties.timeout) {
-			serverRequest.timeout = properties.timeout;
-		}
-		// set the optional timeout handler
-		if (properties.onTimeout) {
-			serverRequest.ontimeout = properties.onTimeout;
-		}
+		// add any event handlers that weren't provided
+		properties.onSuccess = properties.onSuccess || function () {};
+		properties.onFailure = properties.onFailure || function () {};
+		properties.onTimeout = properties.onTimeout || function () {};
+		properties.onProgress = properties.onProgress || function () {};
+		// create the request object
+		var serverRequest = request.create(properties);
 		// if the request is a POST
 		if (properties.post) {
-			// open the request
-			serverRequest.open('POST', properties.url, true);
-			// set its header
-			serverRequest.setRequestHeader("Content-type", properties.contentType || "application/x-www-form-urlencoded");
-			//serverRequest.setRequestHeader("Content-length", properties.post.length);
-			//serverRequest.setRequestHeader("Connection", "close");
-			// send the request, or fail gracefully
-			try { serverRequest.send(properties.post); }
-			catch (errorMessage) { properties.onFailure({readyState : -1, status : -1, statusText : errorMessage}); }
+			try {
+				// open the request
+				serverRequest.open('POST', properties.url, true);
+				// set its header
+				serverRequest.setRequestHeader("Content-type", properties.contentType || "application/x-www-form-urlencoded");
+				// send the request, or fail gracefully
+				serverRequest.send(properties.post);
+			}
+			catch (errorMessage) { properties.onFailure({ readyState : -1, status : -1, statusText : errorMessage }); }
 		// else treat it as a GET
 		} else {
-			// open the request
-			serverRequest.open('GET', request.randomise(properties.url), true);
-			// send the request
-			try { serverRequest.send(); }
-			catch (errorMessage) { properties.onFailure({readyState : -1, status : -1, statusText : errorMessage}); }
+			try {
+				// open the request
+				serverRequest.open('GET', request.randomise(properties.url), true);
+				// send the request
+			 	serverRequest.send();
+			}
+			catch (errorMessage) { properties.onFailure({ readyState : -1, status : -1, statusText : errorMessage }); }
 		}
 	};
 
@@ -67,23 +95,14 @@
 		// react to the status of the request
 		if (serverRequest.readyState === 4) {
 			switch (serverRequest.status) {
-			case 200 :
-				properties.onSuccess(serverRequest, properties);
-				break;
-			case 304 :
-				properties.onSuccess(serverRequest, properties);
-				break;
-			case 0 :
-				// check if the data is okay before accepting it
-				try {
-					var test = JSON.parse(serverRequest.responseText);
+				case 200 :
 					properties.onSuccess(serverRequest, properties);
-				} catch (e) {
+					break;
+				case 304 :
+					properties.onSuccess(serverRequest, properties);
+					break;
+				default :
 					properties.onFailure(serverRequest, properties);
-				}
-				break;
-			default :
-				properties.onFailure(serverRequest, properties);
 			}
 		} else {
 			properties.onProgress(serverRequest, properties);
