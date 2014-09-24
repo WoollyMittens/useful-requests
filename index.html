@@ -45,15 +45,27 @@
 									useful.request.send({
 										url : './inc/xml/test.xml',
 										post : 'name=value&foo=bar',
-										onProgress : function (reply) { console.log(reply); },
-										onFailure : function (reply) { console.log(reply); },
-										onSuccess : function (reply) { console.log(reply); }
+										onProgress : function (reply) { console.log('progress: ', reply); },
+										onFailure : function (reply) { console.log('failure: ', reply); },
+										onSuccess : function (reply) { console.log('success: ', reply); }
 									});
+								}
+								function convertIntoDom () {
+									var html = useful.request.deserialize('<div>Hello <b>World</b></div>');
+									console.log('Hello', html.documentElement.getElementsByTagName('b')[0].innerHTML);
+								}
+								function convertIntoJson () {
+									var obj = useful.request.decode('{"Hello":"World"}');
+									console.log('Hello', obj.Hello);
 								}
 							//-->
 							</script>
 							<button onclick="requestAJAX();">Retrieve XML</button><br/>
 						</dd>
+						<dt>useful.deserialize</dt>
+						<dd><button onclick="convertIntoDom();">Convert text into DOM</button><br/></dd>
+						<dt>useful.decode</dt>
+						<dd><button onclick="convertIntoJson();">Convert text into JSON</button><br/></dd>
 					</dl>
 				</div>
 				<!-- Cut above this -->
