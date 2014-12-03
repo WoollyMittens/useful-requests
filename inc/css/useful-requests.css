@@ -34,7 +34,6 @@
 
 /* line 32, ../../src/scss/useful-requests.scss */
 #css-test {
-  -webkit-transition: all 500ms ease;
   transition: all 500ms ease;
   border: solid 1px #333;
   height: 100px;
