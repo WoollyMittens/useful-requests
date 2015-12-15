@@ -1,5 +1,5 @@
-@import "compass/css3";
-@import "compass/utilities";
+
+
 /*
 	Example Styling for Useful Functions
 */
@@ -30,7 +30,7 @@
 	width : auto;
 }
 #css-test {
-	@include transition(all ease 500ms);
+	transition: all ease 500ms;
 	border : solid 1px #333;
 	height : 100px;
 	left : 0;

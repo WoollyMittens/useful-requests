@@ -19,13 +19,12 @@ describe('Expected behaviours of "useful-requests"', function(){
             .executeAsync(function (done) {
 
                 useful.request.send({
-                    url : './inc/xml/test.xml',
+                    url : './xml/test.xml',
                     post : 'name=value&foo=bar',
                     onProgress : function (reply) { done(reply); },
                     onFailure : function (reply) {},
                     onSuccess : function (reply) {}
                 });
-
 
             }, function (err, result) {
 
@@ -43,13 +42,12 @@ describe('Expected behaviours of "useful-requests"', function(){
             .executeAsync(function (done) {
 
                 useful.request.send({
-                    url : './inc/xml/doesNotExist.xml',
+                    url : './xml/doesNotExist.xml',
                     post : 'name=value&foo=bar',
                     onProgress : function (reply) {},
                     onFailure : function (reply) { done(reply); },
                     onSuccess : function (reply) {}
                 });
-
 
             }, function (err, result) {
 
@@ -67,13 +65,12 @@ describe('Expected behaviours of "useful-requests"', function(){
             .executeAsync(function (done) {
 
                 useful.request.send({
-                    url : './inc/xml/test.xml',
+                    url : './xml/test.xml',
                     post : 'name=value&foo=bar',
                     onProgress : function (reply) {},
                     onFailure : function (reply) {},
                     onSuccess : function (reply) { done(reply); }
                 });
-
 
             }, function (err, result) {
 
