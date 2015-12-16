@@ -2,7 +2,7 @@
 
 A library of useful functions to ease working with AJAX and JSON.
 
-Try the <a href="http://www.woollymittens.nl/useful/default.php?url=useful-requests">tests</a>.
+Try the <a href="http://www.woollymittens.nl/default.php?url=useful-requests">tests</a>.
 
 ## How to include the script
 
