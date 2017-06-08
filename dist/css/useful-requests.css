@@ -26,6 +26,7 @@
   width: auto; }
 
 #css-test {
+  -webkit-transition: all ease 500ms;
   transition: all ease 500ms;
   border: solid 1px #333;
   height: 100px;

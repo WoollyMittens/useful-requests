@@ -55,6 +55,26 @@ Sends an AJAX request and runs the event handlers when appropriate.
 
 **onSuccess : {function}** - A function that gets called after the request completes successfully. Only here will the *reply* object contain the *response*.
 
+
+### all
+
+```javascript
+useful.request.send({
+	urls : ['http://localhost/1', 'http://localhost/2', 'http://localhost/3'],
+	post : 'name=value&foo=bar',
+	contentType : 'text/xml',
+	timeout : 4000,
+	onTimeout : function (reply) { return reply; },
+	onProgress : function (reply) { return reply; },
+	onFailure : function (reply) { return reply; },
+	onSuccess : function (reply) { return reply; }
+});
+```
+
+Sends an AJAX request and runs the event handlers when appropriate.
+
+**urls : {array}** - A collection of requests to collate into a single response. An array of responses will be returned.
+
 **contentType
 
 The *reply* object is passed to all these functions.
@@ -118,9 +138,10 @@ The following commands are available for development:
 + `npm install` - Installs the prerequisites.
 + `gulp import` - Re-imports libraries from supporting projects to `./src/libs/` if available under the same folder tree.
 + `gulp dev` - Builds the project for development purposes.
-+ `gulp prod` - Builds the project for deployment purposes.
++ `gulp dist` - Builds the project for deployment purposes.
 + `gulp watch` - Continuously recompiles updated files during development sessions.
-+ `gulp serve` - Serves the project on a temporary web server at http://localhost:8000/ .
++ `gulp serve` - Serves the project on a temporary web server at http://localhost:8500/.
++ `gulp php` - Serves the project on a temporary php server at http://localhost:8500/.
 
 ## How to test the script
 
