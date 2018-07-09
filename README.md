@@ -1,4 +1,4 @@
-# useful.requests.js: AJAX Library
+# requests.js: AJAX Library
 
 A library of useful functions to ease working with AJAX and JSON.
 
@@ -9,15 +9,7 @@ Try the <a href="http://www.woollymittens.nl/default.php?url=useful-requests">te
 This include can be added to the header or placed inline before the script is invoked.
 
 ```html
-<script src="./js/useful-requests.js"></script>
-```
-
-To enable the use of HTML5 tags in Internet Explorer 8 and lower, include *html5.js*.
-
-```html
-<!--[if lte IE 9]>
-	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+<script src="./js/requests.js"></script>
 ```
 
 ## How to control the script
@@ -25,7 +17,7 @@ To enable the use of HTML5 tags in Internet Explorer 8 and lower, include *html5
 ### send
 
 ```javascript
-useful.request.send({
+requests.send({
 	url : 'http://localhost/',
 	post : 'name=value&foo=bar',
 	contentType : 'text/xml',
@@ -59,7 +51,7 @@ Sends an AJAX request and runs the event handlers when appropriate.
 ### all
 
 ```javascript
-useful.request.send({
+requests.send({
 	urls : ['http://localhost/1', 'http://localhost/2', 'http://localhost/3'],
 	post : 'name=value&foo=bar',
 	contentType : 'text/xml',
@@ -107,7 +99,7 @@ reply = {
 ### deserialize
 
 ```javascript
-object = useful.request.deserialize(text);
+var object = requests.deserialize(text);
 ```
 
 Turns HTML or XML in the form of text into a DOM object.
@@ -119,7 +111,7 @@ Turns HTML or XML in the form of text into a DOM object.
 ### decode
 
 ```javascript
-object = useful.request.decode(text);
+var object = requests.decode(text);
 ```
 
 Turns JSON into a Javascript object, using whatever method is available from safe to unsafe.
