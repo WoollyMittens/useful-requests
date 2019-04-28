@@ -9,7 +9,23 @@ Try the <a href="http://www.woollymittens.nl/default.php?url=useful-requests">te
 This include can be added to the header or placed inline before the script is invoked.
 
 ```html
-<script src="./js/requests.js"></script>
+<script src="js/requests.js"></script>
+```
+
+Or use [Require.js](https://requirejs.org/).
+
+```js
+requirejs([
+	'js/requests.js'
+], function(requests) {
+	...
+});
+```
+
+Or import into an MVC framework.
+
+```js
+var requests = require('js/requests.js');
 ```
 
 ## How to control the script

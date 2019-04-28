@@ -180,6 +180,5 @@ var requests = {
 };
 
 // return as a require.js module
-if (typeof module !== 'undefined') {
-	exports = module.exports = requests;
-}
+if (typeof define != 'undefined') define([], function () { return requests });
+if (typeof module != 'undefined') module.exports = requests;
